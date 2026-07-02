@@ -71,13 +71,6 @@ function navigateToSection(section, options) {
 booksToggle.addEventListener('click', function(event) {
     event.preventDefault();
     booksMenu.classList.toggle('open');
-    const currentSection = window.location.hash.replace('#', '') || 'about';
-    if (currentSection === 'books') {
-        history.pushState(null, '', '#about');
-        navigateToSection('about', { closeDrawer: false, updateHash: false });
-    } else {
-        history.pushState(null, '', '#books');
-    }
 });
 
 if (menuToggle) {

@@ -18,7 +18,7 @@
             <div class="nav-links" id="main-nav">
                 <a href="#about" class="active" data-section="about">Home</a>
                 <div class="nav-item" id="books-menu">
-                    <a href="#books" id="books-toggle" data-section="books">Books <span class="submenu-indicator">▾</span></a>
+                    <button type="button" id="books-toggle" class="nav-trigger">Books <span class="submenu-indicator">▾</span></button>
                     <div class="submenu">
                         <a href="#physical-realm" data-section="physical-realm">The Physical Realm</a>
                     </div>
@@ -50,6 +50,9 @@
                     
                 `
             },
+            books: {
+
+            },
             'physical-realm': {
                 body: `
                     <div class="novel-image-container">
@@ -69,7 +72,9 @@
 
                             <div class="goodreads-widget">
                                 <div class="gr_header"><h1><a rel="nofollow" href="https://www.goodreads.com/book/show/254395861-the-physical-realm">Reviews</a></h1></div>
-                                <iframe sandbox class="goodreads-iframe" src="https://www.goodreads.com/api/reviews_widget_iframe?did=DEVELOPER_ID&format=html&header_text=Goodreads+reviews+for+The+Physical+Realm&isbn=9798246713181&links=000&min_rating=5&num_reviews=2&review_back=ffffff&stars=000000&stylesheet=&text=444"></iframe>
+                                <iframe 
+                                sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+                                class="goodreads-iframe" src="https://www.goodreads.com/api/reviews_widget_iframe?did=DEVELOPER_ID&format=html&header_text=Goodreads+reviews+for+The+Physical+Realm&isbn=9798246713181&links=000&min_rating=5&num_reviews=2&review_back=ffffff&stars=000000&stylesheet=&text=444"></iframe>
                             </div>
                         </div>
                     </div>
