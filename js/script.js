@@ -48,6 +48,14 @@ function setMenuOpen(open) {
     }
 }
 
+function handleMenuToggleClick(menu, toggle) {
+    return function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleSubmenu(menu);
+    };
+}
+
 function setActiveLink(section) {
     navLinks.forEach(function(item) {
         item.classList.remove('active');
@@ -82,15 +90,8 @@ function navigateToSection(section, options) {
     }
 }
 
-booksToggle.addEventListener('click', function(event) {
-    event.preventDefault();
-    toggleSubmenu(booksMenu);
-});
-
-storiesToggle.addEventListener('click', function(event) {
-    event.preventDefault();
-    toggleSubmenu(storiesMenu);
-});
+booksToggle.addEventListener('click', handleMenuToggleClick(booksMenu, booksToggle));
+storiesToggle.addEventListener('click', handleMenuToggleClick(storiesMenu, storiesToggle));
 
 if (menuToggle) {
     menuToggle.addEventListener('click', function() {
@@ -106,7 +107,7 @@ if (menuOverlay) {
 
 navLinks.forEach(function(link) {
     link.addEventListener('click', function(event) {
-        if (this === booksToggle) {
+        if (this === booksToggle || this === storiesToggle) {
             return;
         }
 
