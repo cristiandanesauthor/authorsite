@@ -78,6 +78,25 @@ body {
     cursor: pointer;
 }
 
-h1 {
+
+.obsolescence-story > div > p {
     margin: 0;
+    line-height: 1.3;
+    text-indent: 2ch;
+    text-align: left;
+}
+
+.obsolescence-story > div > p.obsolescence-opening {
+    text-indent: 0;
+}
+
+.obsolescence-story > div > p.obsolescence-new-section {
+    text-indent: 0;
+}
+
+.obsolescence-story > div > p.obsolescence-separator {
+    text-align: center;
+    text-indent: 0;
+    margin: 20px 0;
+    font-weight: bold;
 }

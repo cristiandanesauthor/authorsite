@@ -4,12 +4,15 @@ const mainNav = document.getElementById('main-nav');
 const navLinks = document.querySelectorAll('#main-nav a[data-section]');
 const booksMenu = document.getElementById('books-menu');
 const booksToggle = document.getElementById('books-toggle');
+const storiesMenu = document.getElementById('stories-menu');
+const storiesToggle = document.getElementById('stories-toggle');
 const menuToggle = document.getElementById('menu-toggle');
 const menuOverlay = document.getElementById('menu-overlay');
 const drawerLinks = document.querySelectorAll('#main-nav a, #main-nav .nav-item');
 const bannerImages = {
     about: 'banners/Banner1.jpg',
     'physical-realm': 'banners/Banner2.jpg',
+    obsolescence: 'banners/Banner3.jpg',
     subscribe: 'banners/Banner3.jpg'
 };
 
@@ -20,8 +23,17 @@ function renderSection(section) {
     banner.style.backgroundImage = `url('${image}')`;
 }
 
-function closeSubmenu() {
+function closeSubmenus() {
     booksMenu.classList.remove('open');
+    storiesMenu.classList.remove('open');
+}
+
+function toggleSubmenu(menu) {
+    const shouldOpen = !menu.classList.contains('open');
+    closeSubmenus();
+    if (shouldOpen) {
+        menu.classList.add('open');
+    }
 }
 
 function setMenuOpen(open) {
@@ -53,9 +65,11 @@ function navigateToSection(section, options) {
     renderSection(safeSection);
     setActiveLink(safeSection);
     if (safeSection === 'books') {
-        booksMenu.classList.add('open');
+        toggleSubmenu(booksMenu);
+    } else if (safeSection === 'stories') {
+        toggleSubmenu(storiesMenu);
     } else {
-        closeSubmenu();
+        closeSubmenus();
     }
     if (opts.updateHash !== false) {
         const nextHash = `#${safeSection}`;
@@ -70,7 +84,12 @@ function navigateToSection(section, options) {
 
 booksToggle.addEventListener('click', function(event) {
     event.preventDefault();
-    booksMenu.classList.toggle('open');
+    toggleSubmenu(booksMenu);
+});
+
+storiesToggle.addEventListener('click', function(event) {
+    event.preventDefault();
+    toggleSubmenu(storiesMenu);
 });
 
 if (menuToggle) {
@@ -104,8 +123,8 @@ drawerLinks.forEach(function(item) {
 });
 
 document.addEventListener('click', function(event) {
-    if (!booksMenu.contains(event.target) && !mainNav.contains(event.target) && !menuToggle.contains(event.target)) {
-        closeSubmenu();
+    if (!booksMenu.contains(event.target) && !storiesMenu.contains(event.target) && !mainNav.contains(event.target) && !menuToggle.contains(event.target)) {
+        closeSubmenus();
         setMenuOpen(false);
     }
 });
