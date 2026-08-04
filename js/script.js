@@ -12,7 +12,7 @@ const drawerLinks = document.querySelectorAll('#main-nav a, #main-nav .nav-item'
 const bannerImages = {
     about: 'banners/Banner1.jpg',
     'physical-realm': 'banners/Banner2.jpg',
-    obsolescence: 'banners/Banner3.jpg',
+    obsolescence: 'banners/Banner4.jpg',
     subscribe: 'banners/Banner3.jpg'
 };
 
