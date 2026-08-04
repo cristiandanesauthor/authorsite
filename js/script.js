@@ -18,7 +18,7 @@ const bannerImages = {
 
 function renderSection(section) {
     const item = contentData[section] || contentData.about;
-    contentPane.innerHTML = `<p>${item.body}</p>`;
+    contentPane.innerHTML = item.body || '';
     const image = bannerImages[section] || bannerImages.about;
     banner.style.backgroundImage = `url('${image}')`;
 }
