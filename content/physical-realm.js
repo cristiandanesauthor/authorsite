@@ -4,9 +4,8 @@ window.pageContent['physical-realm'] = {
         <div class="novel-image-container">
             <div>
                 <img src="images/thephysicalrealm.png" alt="The Physical Realm" class="novel-image" />
-                <div class="buy-buttons">
-                    <button class="buy-button" onclick="buy('B0GY18PJBP'); return false;">Buy E-Book</button>
-                    <button class="buy-button" onclick="buy('B0H6887RWF'); return false;">Buy Paperback</button>
+                <div class="buy-buttons">                    
+                    <a href="https://mybook.to/ThePhysicalRealm"><button class="buy-button">BUY</button></a>
                 </div>
             </div>
             <div>
