@@ -9,6 +9,7 @@ const storiesToggle = document.getElementById('stories-toggle');
 const menuToggle = document.getElementById('menu-toggle');
 const menuOverlay = document.getElementById('menu-overlay');
 const drawerLinks = document.querySelectorAll('#main-nav a, #main-nav .nav-item');
+let repaginateObsolescence = null;
 const bannerImages = {
     about: 'banners/Banner1.jpg',
     'physical-realm': 'banners/Banner2.jpg',
@@ -18,9 +19,113 @@ const bannerImages = {
 
 function renderSection(section) {
     const item = contentData[section] || contentData.about;
+    repaginateObsolescence = null;
     contentPane.innerHTML = item.body || '';
+    if (section === 'obsolescence') {
+        initializeObsolescenceReader();
+    }
     const image = bannerImages[section] || bannerImages.about;
     banner.style.backgroundImage = `url('${image}')`;
+}
+
+function initializeObsolescenceReader() {
+    const story = contentPane.querySelector('.obsolescence-story > div');
+    if (!story) {
+        return;
+    }
+
+    const storyBlocks = Array.from(story.children);
+    const reader = document.createElement('div');
+    reader.className = 'obsolescence-reader';
+
+    const page = document.createElement('div');
+    page.className = 'obsolescence-page';
+
+    const pageContent = document.createElement('div');
+    pageContent.className = 'obsolescence-page-content';
+    page.appendChild(pageContent);
+
+    const controls = document.createElement('div');
+    controls.className = 'obsolescence-reader-controls';
+
+    const previousButton = document.createElement('button');
+    previousButton.type = 'button';
+    previousButton.textContent = 'Previous';
+
+    const pageStatus = document.createElement('span');
+    pageStatus.className = 'obsolescence-page-status';
+    pageStatus.setAttribute('aria-live', 'polite');
+
+    const pageSelect = document.createElement('select');
+    pageSelect.setAttribute('aria-label', 'Skip to page');
+
+    const nextButton = document.createElement('button');
+    nextButton.type = 'button';
+    nextButton.textContent = 'Next';
+
+    controls.append(previousButton, pageStatus, pageSelect, nextButton);
+    reader.append(page, controls);
+    story.replaceWith(reader);
+
+    let pages = [];
+    let currentPage = 0;
+
+    function renderPage() {
+        pageContent.replaceChildren(...pages[currentPage].map(function(block) {
+            return block.cloneNode(true);
+        }));
+        pageStatus.textContent = `Page ${currentPage + 1} of ${pages.length}`;
+        previousButton.disabled = currentPage === 0;
+        nextButton.disabled = currentPage === pages.length - 1;
+        pageSelect.value = String(currentPage);
+    }
+
+    function paginate() {
+        pageContent.replaceChildren();
+        pages = [[]];
+
+        storyBlocks.forEach(function(block) {
+            pageContent.appendChild(block);
+            if (pageContent.scrollHeight > pageContent.clientHeight && pages[pages.length - 1].length > 0) {
+                pageContent.removeChild(block);
+                pages.push([]);
+                pageContent.replaceChildren();
+                pageContent.appendChild(block);
+            }
+            pages[pages.length - 1].push(block);
+        });
+
+        pageSelect.replaceChildren(...pages.map(function(_, index) {
+            const option = document.createElement('option');
+            option.value = String(index);
+            option.textContent = `Page ${index + 1}`;
+            return option;
+        }));
+        currentPage = Math.min(currentPage, pages.length - 1);
+        renderPage();
+    }
+
+    previousButton.addEventListener('click', function() {
+        if (currentPage > 0) {
+            currentPage -= 1;
+            renderPage();
+        }
+    });
+
+    nextButton.addEventListener('click', function() {
+        if (currentPage < pages.length - 1) {
+            currentPage += 1;
+            renderPage();
+        }
+    });
+
+    pageSelect.addEventListener('change', function() {
+        currentPage = Number(pageSelect.value);
+        renderPage();
+    });
+
+    repaginateObsolescence = paginate;
+    paginate();
 }
 
 function closeSubmenus() {
@@ -138,6 +243,9 @@ window.addEventListener('hashchange', function() {
 window.addEventListener('resize', function() {
     if (window.innerWidth > 768) {
         setMenuOpen(false);
+    }
+    if (repaginateObsolescence) {
+        repaginateObsolescence();
     }
 });
 
