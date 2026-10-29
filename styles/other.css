@@ -59,7 +59,7 @@ body {
     }
 }
 
-.buy-buttons {
+.generic-buttons {
     display: flex;
     justify-content: center;
     gap: 8px;
@@ -68,7 +68,7 @@ body {
     width: 100%;
 }
 
-.buy-button {
+.generic-button {
     flex: 0 0 auto;
     min-width: 120px;
     text-wrap: nowrap;
@@ -85,7 +85,7 @@ body {
 }
 
 
-.obsolescence-reader {
+.story-reader {
     width: 100%;
     max-width: 760px;
     margin: 0 auto;
@@ -93,7 +93,7 @@ body {
     font-family: Georgia, "Times New Roman", serif;
 }
 
-.obsolescence-page {
+.story-page {
     box-sizing: border-box;
     padding: clamp(24px, 5vw, 56px);
     border: 1px solid #e1d8c6;
@@ -102,17 +102,17 @@ body {
     box-shadow: 0 8px 24px rgba(48, 39, 24, 0.12);
 }
 
-.obsolescence-page-content {
+.story-page-content {
     height: clamp(300px, 58vh, 680px);
     overflow: hidden;
 }
 
-.obsolescence-page-content h1 {
+.story-page-content h1 {
     margin: 0 0 1.2em;
     font-size: clamp(1.7rem, 4vw, 2.2rem);
 }
 
-.obsolescence-page-content > p {
+.story-page-content > p {
     margin: 0;
     font-size: 1.05rem;
     line-height: 1.55;
@@ -120,22 +120,22 @@ body {
     text-align: left;
 }
 
-.obsolescence-page-content > p.obsolescence-opening {
+.story-page-content > p.story-opening {
     text-indent: 0;
 }
 
-.obsolescence-page-content > p.obsolescence-new-section {
+.story-page-content > p.story-new-section {
     text-indent: 0;
 }
 
-.obsolescence-page-content > p.obsolescence-separator {
+.story-page-content > p.story-separator {
     text-align: center;
     text-indent: 0;
     margin: 20px 0;
     font-weight: bold;
 }
 
-.obsolescence-reader-controls {
+.story-reader-controls {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -144,33 +144,36 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.obsolescence-reader-controls button,
-.obsolescence-reader-controls select {
+.story-reader-controls button,
+.story-reader-controls select {
     min-height: 40px;
+    border-radius: 4px;
+}
+
+.story-reader-controls select {
     padding: 8px 14px;
     border: 1px solid #b8ad99;
-    border-radius: 4px;
     background: #fff;
     color: #29251d;
     font: inherit;
 }
 
-.obsolescence-reader-controls button {
+.story-reader-controls button {
     cursor: pointer;
 }
 
-.obsolescence-reader-controls button:disabled {
+.story-reader-controls button:disabled {
     cursor: default;
     opacity: 0.5;
 }
 
-.obsolescence-page-status {
+.story-page-status {
     min-width: 90px;
     text-align: center;
 }
 
 @media (max-width: 600px) {
-    .obsolescence-reader-controls {
+    .story-reader-controls {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
         grid-template-areas:
@@ -179,24 +182,20 @@ body {
         gap: 8px;
     }
 
-    .obsolescence-reader-controls button:first-child {
+    .story-reader-controls button:first-child {
         grid-area: previous;
     }
 
-    .obsolescence-page-status {
+    .story-page-status {
         grid-area: status;
     }
 
-    .obsolescence-reader-controls select {
+    .story-reader-controls select {
         grid-area: select;
         justify-self: center;
     }
 
-    .obsolescence-reader-controls button:last-child {
+    .story-reader-controls button:last-child {
         grid-area: next;
-    }
-
-    .obsolescence-reader-controls button {
-        padding: 8px 10px;
     }
 }
